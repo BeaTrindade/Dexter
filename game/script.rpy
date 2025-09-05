@@ -10,8 +10,7 @@ define r = Character("Ross", color="#1ac0b2") # vilão/nice guy
 define k = Character("Karen", color="#f38226") # Otaku/ irmã do Viktor
 define v = Character("Viktor", color="#0d1df0") # Inteligente/Nerd
 define l = Character("Lunna", color="#44105c") # Emo/Rock
-define c = Character("Karen e Viktor", color="#814a0a") # dupla
-define z = Character("", color="#000000") # aleatorio
+define c = Character("Viktor e Karen", color="#814a0a") # dupla
 
 #Imagens Gracie
 image gracie = "images/gracie/gracie.png"
@@ -77,6 +76,7 @@ image karen_doce1 = "images/karen/karen_doce1.png"
 image karen_doce2 = "images/karen/karen_doce2.png"
 image karen_doce3 = "images/karen/karen_doce3.png"
 image karen_cake = "images/karen/karen_cake.png"
+image karen_triste = "images/karen/karen_triste.png"
 
 
 #Imagens Viktor
@@ -84,6 +84,10 @@ image viktor = "images/viktor/viktor.png"
 image viktor_feliz1 = "images/viktor/viktor_feliz1.png"
 image viktor_feliz2 = "images/viktor/viktor_feliz2.png"
 image viktor_feliz3 = "images/viktor/viktor_feliz3.png"
+image viktor_tenso1 = "images/viktor/viktor_tenso1.png"
+image viktor_tenso2 = "images/viktor/viktor_tenso2.png"
+image viktor_triste = "images/viktor/viktor_triste.png"
+
 
 #Imagens Cenarios:
 image celular = "images/celular.png"
@@ -104,13 +108,11 @@ label start:
     play music "audio/lopping_intro.mp3" loop volume 0.1
     
     scene black with fade
-    play sound "audio/sms1.mp3"
-    "Plim...Plim *SMS recebido.*"
-    stop sound fadeout 2.0
+    play sound "audio/sms.mp3"
+    " 'Plim...' *SMS recebido.* "
+    stop sound
 
-    scene celular at center:
-        zoom 1.3
-        yalign 0.1
+    scene celular
     with fade
     
     d "Hnmmm..."
@@ -119,7 +121,16 @@ label start:
             jump festa
 
         "você está exausto e vai dormir.":
-            return
+            jump dormir
+
+label dormir:
+    scene mimir:
+        yalign 0.1
+        xalign 0.5
+    with fade
+    "Boa Noite..."
+    "...zzZZZzz"
+    return
 
 label festa:
     scene casa:
@@ -128,7 +139,7 @@ label festa:
     with fade
 
     play sound "audio/toc_toc.mp3" fadein 1.0
-    z "Toc Toc Toc"
+    "Toc Toc Toc"
     stop sound fadeout 1.0
 
     show gracie_feliz at left:
@@ -166,16 +177,18 @@ label sala:
     show ross_boy1 at left:
         zoom 0.8
     with dissolve
-    r "...Podia ter ficado em casa."
+    r "...podia ter ficado em casa."
     hide ross_boy1
 
-    menu:
-        "O que você disse?":
-            show ross_bravo2 at left:
-                zoom 0.8
-            r "Nada não mano..."
-            hide ross_bravo2
-    z "*...Ross sai revirando os olhos*"
+    d "O que você disse?"
+    
+    show ross_bravo2 at left:
+        zoom 0.8
+    with dissolve
+    r "Nada não mano..."
+    hide ross_bravo2
+
+    "*...Ross sai revirando os olhos*"
 
     show karen_feliz1 at center:
         zoom 0.7
@@ -185,8 +198,8 @@ label sala:
         zoom 0.8
     with dissolve
     c "Oi Dexter!"
-    c "Quem bom que veio"
-    c "Você estava sumido..."
+    c "Que bom que você veio"
+    c "você estava sumido..."
     hide karen_feliz1
     hide viktor_feliz2
 
@@ -197,13 +210,13 @@ label sala:
     show karen_doce2 at center:
         zoom 0.7
     with dissolve
-    k "Amigo, quer doce?"
-    k "Eu trouxe vários."
+    k "Amigo, quer salgadinhos?"
+    k "tem coxinha, bolinha de queijo e kibe."
     hide karen_doce2
     hide viktor_feliz3
 
     menu:
-        "Aceitar o Doce":
+        "Aceitar os salgados.":
             show karen_doce1 at center:
                 zoom 0.7
             show viktor_feliz1 at left:
@@ -212,16 +225,16 @@ label sala:
             hide karen_doce1
             hide viktor_feliz1
 
-        "Recusar o Doce":
+        "Recusar os salgados.":
             show karen_doce3 at center:
                 zoom 0.7
-            show viktor at left:
-                zoom 0.5
+            show viktor_tenso1 at left:
+                zoom 0.8
             k "Quando quiser é só ir pegar!"
             hide karen_doce3
-            hide viktor
+            hide viktor_tenso1
     
-    z "*Viktor e Karen saem para se divertir...*"
+    "*Viktor e Karen saem para se divertir...*"
 
     show lunna_feliz4 at left:
         zoom 0.8
@@ -232,29 +245,30 @@ label sala:
     show lunna_brava1 at left:
         zoom 0.8
     with dissolve
-    l "Tá um porre essas músicas..."
+    l "Tá um porre isso aqui..."
     hide lunna_brava1
 
     show lunna_feliz1 at left:
         zoom 0.8
     with dissolve
-    l "Aproveita e pega uma cerveja aí..."
+    l "Bora animar!"
+    l "pega uma cerveja aí..."
     hide lunna_feliz1
 
     menu:
-        "Pegar a  cerveja de vocês":
+        "Pegar a cerveja.":
             show lunna_feliz3 at left:
                 zoom 0.8
             l "Bem gelada, heim!"
             hide lunna_feliz3
 
-        "Dizer não e ir buscar apenas a sua.":
+        "Dizer não.":
             show lunna_brava1 at left:
                 zoom 0.8
             l "Tu é um porre moleque!"
             hide lunna_brava1
 
-    "*Você vai pegar cerveja...*"
+    "*Você sai e esbarra na Hope*"
 
     show hope_feliz at left:
         zoom 0.8
@@ -264,23 +278,26 @@ label sala:
 
     menu:
         "Oi Cheirosa!":
-            z ""
+            show hope_timida at left:
+                zoom 0.8
+            with dissolve
+            h "Hahah, bobinho"
+            h "depois do parabéns, queria te mostrar uma coisa..."
+            hide hope_timida
 
         "Linda é você.":
-            z ""
+            show hope_timida at left:
+                zoom 0.8
+            with dissolve
+            h "Hahah, bobinho"
+            h "depois do parabéns, queria te mostrar uma coisa..."
+            hide hope_timida
     
-    show hope_timida at left:
-        zoom 0.8
-    with dissolve
-    h "Hahah, bobinho"
-    h "Depois do parabéns, queria te mostrar uma coisa..."
-    hide hope_timida
-
     show hope_feliz2 at left:
         zoom 0.8
     with dissolve
-    h "no banheiro."
-    h "Vou lhe esperar..."
+    h "no banheiro..."
+    h "...Vou lhe esperar"
     hide hope_feliz2
 
     "*Hope sai corada e tímida.*"
@@ -295,13 +312,11 @@ label sala:
         zoom 0.8
     with dissolve    
     l "Aquele Ross é um saco!"
-    l "Não sai do lado da Gracie"
-    l "Tá na cara que ela não quer ele."
+    l "não sai do lado da Gracie"
+    l "tá na cara que ela não gosta dele."
     hide lunna_beer2
 
-    menu:
-        "Concordo, vou falar com ela":
-            z ""
+    d "Concordo, vou falar com ela."
 
     show gracie_feliz at left:
         zoom 0.8
@@ -310,11 +325,20 @@ label sala:
     g "Está gostando da festa?"
     hide gracie_timida
 
-    show ross_boy1 at right:
-        zoom 0.8
-    with dissolve
-    "*Ross encarando, tentando entender a conversa.*"
-    hide ross_boy1
+    menu:
+        "Sim":
+            show ross_boy1 at right:
+                zoom 0.8
+            with dissolve
+            "*Ross encarando, tentando entender a conversa.*"
+            hide ross_boy1
+
+        "Não":
+            show ross_boy1 at right:
+                zoom 0.8
+            with dissolve
+            "*Ross encarando, tentando entender a conversa...*"
+            hide ross_boy1
 
     show gracie_feliz at left:
         zoom 0.8
@@ -324,14 +348,15 @@ label sala:
     hide gracie_timida
 
     stop music
-    
+
     scene black with fade
+    play music "audio/dance_dance.mp3" loop volume 0.5
     "*Karen aumenta o volume da música*"
     scene danca at center:
         zoom 1.3
         yalign 0.1
     with fade
-    "*Todos vão dançar*"
+    "*Todos estão dançando.*"
 
     scene sala:
         zoom 1.3
@@ -341,7 +366,7 @@ label sala:
     show hope_feliz at left:
         zoom 0.8
     with dissolve
-    h "Dança comigo?"
+    h "Dexter, dança comigo?"
     hide hope_feliz
 
     show gracie_timida at center:
@@ -370,6 +395,12 @@ label sala:
     g "E você sabe?"
     hide gracie_brava2
 
+    "*Karen Desliga a musica*"
+
+    stop music
+
+    play music "audio/lopping_intro.mp3" loop volume 0.1
+
     show ross_bravo2 at right:
         zoom 0.8
     with dissolve
@@ -388,12 +419,13 @@ label sala:
     g "..."
     hide gracie_brava1
 
-
     show gracie_feliz at center:
         zoom 0.8
     with dissolve
     g "Vamos cortar o bolo"
     hide gracie_feliz
+
+    stop music
 
 
 label bolo:
@@ -402,15 +434,16 @@ label bolo:
         yalign 0.1
     with fade
 
-    play sound "audio/parabens.mp3" fadein 1.0
+    play music "audio/parabens1.mp3" fadein 1.0 volume 0.5
     "*Todos cantam parabéns.*"
     v "Parabéns Gracie!"
     l "Uhuuul!"
     k "*Batendo palmas*"
     h "Isso aí, amiga!"
     r "..."
-    stop sound fadeout 1.0
+    stop music fadeout 1.0
 
+    play music "audio/lopping_intro.mp3" loop volume 0.1
     scene sala:
         zoom 1.3
         yalign 0.1
@@ -437,14 +470,22 @@ label bolo:
             jump gracie
         "Seguir a Hope":
             jump hope
-    
+
+    stop music
+
 label gracie:
-    scene black:
-        "*Você segue em direção ao quarto.*"
+
+    scene black with fade
+    "*Você segue em direção ao quarto.*"
+
+    play music "audio/intro_assasinato.mp3" fadein 1.0 volume 0.3
+
     scene quarto:
         zoom 1.3
         yalign 0.1
     with fade
+
+    d "..."
 
     play sound "audio/impact.mp3"
     show ross_killer2 at left:
@@ -458,7 +499,7 @@ label gracie:
         zoom 0.8
     with dissolve
     r "Eu...Eu...Não fiz nada"
-    r "Não foi eu..."
+    r "Não fui eu..."
     hide ross_killer3
 
     show gracie_kill2 at right:
@@ -468,10 +509,10 @@ label gracie:
     "..."
     "*Ross sai do local correndo*"
     
-    show viktor at left:
+    show viktor_triste at left:
         zoom 0.5
     with dissolve
-    "*Viktor está assustado"
+    "*Viktor está assustado*"
     hide viktor
 
     show karen at left:
@@ -494,7 +535,6 @@ label gracie:
             "..."
         "Chamar a polícia":
             jump policia
-
 
     scene sala:
             zoom 1.3
@@ -536,17 +576,22 @@ label gracie:
     h "..."
     hide hope_kill1
 
+    stop music
 
     return
    
 
 label hope:
-    scene black:
-        "*Você segue em direção ao banheiro.*"
+    scene black with fade
+    "*Você segue em direção ao banheiro.*"
+    
+    play music "audio/intro_assasinato.mp3" fadein 1.0 volume 0.3
     scene banheiro:
         zoom 1.3
         yalign 0.1
     with fade
+
+    d "..."
 
     play sound "audio/impact.mp3"
     show ross_killer2 at left:
@@ -560,7 +605,7 @@ label hope:
         zoom 0.8
     with dissolve
     r "Eu...Eu...Não fiz nada"
-    r "Não foi eu..."
+    r "Não fui eu..."
     hide ross_killer3
 
     show hope_kill4 at right:
@@ -570,18 +615,18 @@ label hope:
     "..."
     "*Ross sai do local correndo*"
     
-    show viktor at left:
+    show viktor_triste at left:
         zoom 0.5
     with dissolve
-    "*Viktor está assustado"
-    hide viktor
+    "*Viktor está assustado*"
+    hide viktor_triste
 
-    show karen at left:
+    show karen_triste at left:
         zoom 0.5
     with dissolve
     k "..."
     k "HOPE?"
-    hide karen
+    hide karen_triste
 
     show lunna_triste1 at left:
         zoom 0.5
@@ -634,18 +679,22 @@ label hope:
     show gracie_triste2 at right:
         zoom 0.8
     with dissolve
-    h "..."
+    g "..."
     hide gracie_triste2
 
     return
 
 label policia:
+        stop music
+
+        play sound "audio/sirene.mp3" volume 0.3
         scene policia:
             zoom 1.3
             yalign 0.1
+            xalign 0.5
         with fade
         "*Ross é preso.*"
-
+        stop sound
         return
 
     # return
